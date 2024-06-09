@@ -24,23 +24,24 @@ def transform(df, *args, **kwargs):
     """
     # Specify your transformation logic here
     categorical = ['PULocationID', 'DOLocationID']
-    numerical = ['trip_distance']
-    train_dicts = df[categorical + numerical].to_dict(orient='records')
+    #numerical = ['trip_distance']
+    train_dicts = df[categorical].to_dict(orient='records')
 
     dv = DictVectorizer()
     X_train = dv.fit_transform(train_dicts)
 
-    target = 'duration'
+    target = ['duration']
     y_train = df[target].values
 
     lr = LinearRegression()
     lr.fit(X_train, y_train)
 
-    y_pred = lr.predict(X_train)
+    # y_pred = lr.predict(X_train)
 
-    mean_squared_error(y_train, y_pred, squared=False)
+    # mean_squared_error(y_train, y_pred, squared=False)
+    print(lr.intercept_)
 
-    return df
+    return lr, dv
 
 
 @test
