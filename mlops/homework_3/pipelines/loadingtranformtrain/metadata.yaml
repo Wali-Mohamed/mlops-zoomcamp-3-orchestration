@@ -6,6 +6,8 @@ blocks:
       path: homework_3/data_loaders/ingester.py
   downstream_blocks:
   - transformer
+  - ingester_bar_chart_s6
+  - ingester_histogram_k5
   executor_config: null
   executor_type: local_python
   has_callback: false
@@ -48,7 +50,7 @@ blocks:
   language: python
   name: training
   retry_config: null
-  status: updated
+  status: failed
   timeout: null
   type: transformer
   upstream_blocks:
@@ -77,4 +79,44 @@ tags: []
 type: python
 uuid: loadingtranformtrain
 variables_dir: /home/src/mage_data/homework_3
-widgets: []
+widgets:
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    chart_style: vertical
+    chart_type: bar chart
+    x: x
+    y: y
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: ingester_bar chart_s6
+  retry_config: null
+  status: executed
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - ingester
+  uuid: ingester_bar_chart_s6
+- all_upstream_blocks_executed: true
+  color: null
+  configuration:
+    buckets: 10
+    chart_type: bar chart
+    group_by: []
+    x: x
+  downstream_blocks: []
+  executor_config: null
+  executor_type: local_python
+  has_callback: false
+  language: python
+  name: ingester_histogram_k5
+  retry_config: null
+  status: executed
+  timeout: null
+  type: chart
+  upstream_blocks:
+  - ingester
+  uuid: ingester_histogram_k5

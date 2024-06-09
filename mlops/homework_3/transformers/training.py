@@ -1,5 +1,6 @@
 from sklearn.feature_extraction import DictVectorizer
 from sklearn.linear_model import LinearRegression
+import pandas as pd
 if 'transformer' not in globals():
     from mage_ai.data_preparation.decorators import transformer
 if 'test' not in globals():
@@ -22,6 +23,7 @@ def transform(df, *args, **kwargs):
         Anything (e.g. data frame, dictionary, array, int, str, etc.)
     """
     # Specify your transformation logic here
+    categorical = ['PULocationID', 'DOLocationID']
     numerical = ['trip_distance']
     train_dicts = df[categorical + numerical].to_dict(orient='records')
 
@@ -38,7 +40,7 @@ def transform(df, *args, **kwargs):
 
     mean_squared_error(y_train, y_pred, squared=False)
 
-    return y_pred
+    return df
 
 
 @test
